@@ -25,10 +25,10 @@ if __name__ == '__main__':
     else:
         dest = path / 'main'
     shutil.copytree(bw_ext_path, dest / 'bw-ext', dirs_exist_ok=True)
-    shutil.copy(pathlib.Path('lbdcl.cfg'), dest / 'lbdcl.cfg')
+    shutil.copy(pathlib.Path('tpcl.cfg'), dest / 'tpcl.cfg')
 
     if sys.platform == 'win32':
-        with open(path / 'lbdcl.bat', 'w') as f:
+        with open(path / 'TargetedProxyChromeLauncher.bat', 'w') as f:
             if args.bundle_type == 'onefile':
                 f.write(r'start /b main .\ .\bw-ext')
             else:

@@ -13,16 +13,16 @@ exception_logger = logging.getLogger(__name__ + '_exc_tb')
 # Command line args will be platform dependent. Chrome cmd opens chrome configured to the given proxy/port
 if sys.platform == 'win32':
     chrome_cmd = r'start chrome https://ipstack.com/ --user-data-dir="%UserProfile%\.temp-evenue-chrome_{port}" ' \
-                 r'--load-extension={extension_dir} ' \
+                 r'--load-extension="{extension_dir}" ' \
                  r'--proxy-server=http://{proxy_ip}:{port} --no-first-run'
 elif sys.platform == 'linux':
     chrome_cmd = r'google-chrome https://ipstack.com/ --user-data-dir=~\.temp-evenue-chrome_{port} ' \
-                 r'--load-extension={extension_dir} ' \
+                 r'--load-extension="{extension_dir}" ' \
                  r'--proxy-server=http://{proxy_ip}:{port} --no-first-run'
 elif sys.platform == 'darwin':
     chrome_cmd = r'open -a "Google Chrome" https://ipstack.com/ ' \
                  r'--user-data-dir=~\.temp-evenue-chrome_{port}" ' \
-                 r'--load-extension={extension_dir} ' \
+                 r'--load-extension="{extension_dir}" ' \
                  r'--proxy-server=http://{proxy_ip}:{port} --no-first-run'
 else:
     raise ValueError(
@@ -125,7 +125,7 @@ def update_port(_=None):
 
 
 root = tkinter.Tk()
-root.title("Evenue Chrome Window Launcher")
+root.title("Targeted Proxy Chrome Launcher")
 
 mainframe = ttk.Frame(root, padding="30 30 30 30")
 mainframe.grid(column=0, row=0, sticky=(tkinter.N, tkinter.W, tkinter.E, tkinter.S))
@@ -172,7 +172,7 @@ if __name__ == '__main__':
     args_ = parser.parse_args()
 
     cfg_parser = configparser.ConfigParser()
-    bots_cfg_path = args_.cfg_dir / 'lbdcl.cfg'
+    bots_cfg_path = args_.cfg_dir / 'tpcl.cfg'
     with open(bots_cfg_path) as f:
         cfg_parser.read_file(f)
 
