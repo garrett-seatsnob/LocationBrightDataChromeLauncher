@@ -94,14 +94,14 @@ def get_ports():
             try:
                 raw_state = proxy_dict['state']
             except KeyError:
-                state = 'Any State'
+                state = '(Any State)'
             else:
                 state = raw_state.upper()
 
             try:
                 city = proxy_dict['city']
             except KeyError:
-                city = 'Any City'
+                city = '(Any City)'
             list_val = f"{state} -- {city}: {proxy_dict['port']}"
             if max_list_val_width is None:
                 port_combo_var.set(list_val)
@@ -110,7 +110,7 @@ def get_ports():
             else:
                 max_list_val_width = max(max_list_val_width, len(list_val))
             proxies.append(list_val)
-    port_combo.configure(values=proxies, width=max_list_val_width + 2)
+    port_combo.configure(values=sorted(proxies), width=max_list_val_width + 2)
 
 
 def update_port(_=None):
