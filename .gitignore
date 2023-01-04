@@ -1,2 +1,4 @@
 # Project exclude paths
-/bw-ext/
+/.idea/
+main.spec
+/build/

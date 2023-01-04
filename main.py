@@ -172,7 +172,7 @@ if __name__ == '__main__':
     args_ = parser.parse_args()
 
     cfg_parser = configparser.ConfigParser()
-    bots_cfg_path = args_.cfg_dir / 'EvenueChromeLauncher.cfg'
+    bots_cfg_path = args_.cfg_dir / 'lbdcl.cfg'
     with open(bots_cfg_path) as f:
         cfg_parser.read_file(f)
 
