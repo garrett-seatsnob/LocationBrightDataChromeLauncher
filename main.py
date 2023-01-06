@@ -138,7 +138,7 @@ port_combo_var = tkinter.StringVar()
 port_combo = ttk.Combobox(mainframe, width=15, values=list(), state=['readonly'], textvariable=port_combo_var)
 port_combo.grid(column=1, row=0, sticky=(tkinter.W, tkinter.E))
 port_combo.bind("<<ComboboxSelected>>", update_port)
-ttk.Button(mainframe, text="Refresh ports", command=get_ports).grid(column=2, row=0, sticky=(tkinter.W, tkinter.E))
+ttk.Button(mainframe, text="Get ports", command=get_ports).grid(column=2, row=0, sticky=(tkinter.W, tkinter.E))
 
 ttk.Label(mainframe, text="proxy").grid(column=0, row=1)
 proxy = tkinter.StringVar()
