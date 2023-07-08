@@ -3,6 +3,7 @@ import tkinter.ttk as ttk
 import sys
 import subprocess
 import os
+import shutil
 import requests
 import pathlib
 import logging
@@ -57,6 +58,16 @@ def launch_chrome():
     port_value = port.get()
     proxy_value = proxy.get()
     extension_dir = pathlib.Path(os.getcwd()) / ext_dir
+    if sys.platform == 'win32':
+        temp_dir_path = os.path.join(os.environ['USERPROFILE'], rf".temp-evenue-chrome_{port_value}")
+    else:
+        temp_dir_path = rf"~\.temp-evenue-chrome_{port_value}"
+    try:
+        if os.path.exists(temp_dir_path):
+            shutil.rmtree(temp_dir_path)
+    except Exception:
+        logger.error("Unable to launch browser")
+        exception_logger.exception(f"could not remove temporary files from last chrome session for port {port_value}")
     logger.info(f'Launching port {port_value}')
     subprocess.run(chrome_cmd.format(port=port_value, extension_dir=extension_dir, proxy_ip=proxy_value), shell=True)
 
@@ -103,6 +114,15 @@ def get_ports():
             except KeyError:
                 city = '(Any City)'
             list_val = f"{state} -- {city}: {proxy_dict['port']}"
+            if max_list_val_width is None:
+                port_combo_var.set(list_val)
+                update_port()
+                max_list_val_width = len(list_val)
+            else:
+                max_list_val_width = max(max_list_val_width, len(list_val))
+            proxies.append(list_val)
+        elif proxy_dict['zone'] == 'evenue_purchasing':
+            list_val = f'_New Evenue: {proxy_dict["port"]}'
             if max_list_val_width is None:
                 port_combo_var.set(list_val)
                 update_port()
